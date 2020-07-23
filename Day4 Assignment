@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <p>Click the button to demonstrate the prompt box.</p>
+     
+     <button onclick="myFunction()">Try it</button>
+     
+     <p id="demo"></p>
+     <script>
+       function myFunction() 
+       {
+        myFunction()
+        {
+            var i = 1; i <= i; i++ )
+                {
+                    if ( i%3 === 0 && i%5 === 0 )
+                        {
+                            console.log( i + " FizzBuzz" );
+                        }
+                    else if ( i%3 === 0 ) 
+                        {
+                            console.log(i+ " Fizz" );
+                        }
+                            else if ( i%5 === 0 ) 
+                                {
+                                    console.log(i+ " Buzz" );
+                                }
+                            else
+                                {
+                                    console.log(i);
+                                }
+                        }
+       }        
+      </script>
+         </body>
+</html> 
+
+
+
+//QUESTION 2
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JS Prime Generator</title>
+</head>
+<body>
+	<div id="res"></div>
+	<button id="generate">Generate more primes!</button>
+	<script type="text/javascript">
+	(function(){
+		"use strict";
+		
+		//Add event listener to the button
+		document.getElementById("generate").addEventListener("click", get_primes, false);
+	
+		var timeDiff  =  {
+			setStartTime:function ()
+			{
+				var d = new Date();
+				this.time  = d.getTime();
+			},
+			getDiff:function ()
+			{
+				var d2 = new Date();
+				return (d2.getTime()-this.time);
+			}
+		};
+		
+		function get_primes()
+		{
+			//Start the timer
+			timeDiff.setStartTime();
+			
+			//Define primes array
+			var primes = [];
+			
+			//Check for "primes" key in localstorage
+			if(localStorage.getItem("primes") != null)
+			{
+				var existing_primes = JSON.parse(localStorage.getItem("primes"));
+				var num_primes = existing_primes.length;
+				
+				// If there is a "primes" key in localstorage, add it to the 
+				// primes array
+				for(var i=0;i< num_primes;i++)
+				{
+					primes.push(existing_primes[i]);
+				}
+			}
+			else //Seed the prime generator with the first prime number
+			{
+				primes.push(2);
+			}
+			
+			// Get the largest existing prime, and add one 
+			// to make it the starting number in the search for the next prime
+			var start_num = primes[primes.length - 1] + 1;
+			
+			// Specify a sane ending point
+			var end_num = 9999 + start_num;
+			
+			// Flag for determining if a number is prime
+			var is_prime = true;
+			var x = 0;
+			
+			for(i = start_num;i < end_num;i++)
+			{
+				is_prime = true;
+				
+				num_primes = primes.length;
+				
+				for(x=0;x<num_primes;x++)
+				{
+					//If the remainder is 0, the number is a composite
+					if(i % primes[x] === 0)
+					{
+						is_prime = false;
+						break;
+					}
+				}
+				
+				// If the number is prime, add it to the primes array
+				if(is_prime === true)
+				{
+					primes.push(i);
+				}
+			}
+			
+			//Save the array in localStorage for the next round(s)
+			localStorage.setItem("primes", JSON.stringify(primes));
+			
+			var output = "";
+			
+			//String together all the primes
+			output += primes.join(", ");
+			
+			output += '<br /><br />';
+			
+			var total_time = timeDiff.getDiff();
+			
+			output += 'Generated '+primes.length+' primes in '+(total_time / 1000)+' seconds.';
+			
+			document.getElementById('res').innerHTML = output;
+			
+			location.href="#generate";
+		}
+	}());
+	</script>
+	<button onclick="localStorage.setItem('primes', null)">Start Over</button>
+</body>
+</html>
+
+
+//QUESTION 3
+
+
+
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>Click the button to add new elements to the array.</p>
+
+<button onclick="myFunction()">Try it</button>
+
+<p id="demo"></p>
+
+<script>
+var fruits = ["Banana", "Orange", "Apple", "Mango"];
+document.getElementById("demo").innerHTML = fruits;
+
+function myFunction() {
+  fruits.push("Kiwi", "Lemon", "Pineapple");
+  document.getElementById("demo").innerHTML = fruits;
+}
+</script>
+
+</body>
+</html>
+
+
+//QUESTION 4
+
+
+
+<html>
+    <head>
+        <title> CALC </title>
+    </head>
+    <!-- create table -->
+<!-- for styling -->
+<style>
+    .title{
+    border-radius: 10px;
+    margin-bottom: 10px;
+    text-align:center;
+    width: 210px;
+    color:#ff4456;
+    border: solid black 1px;
+    }
+    input[type="button"]
+    {
+    border-radius: 10px;
+    background-color:#ff4456;
+    color: black;
+    border-color:#ff4456 ;
+    width:100%;
+    }
+    input[type="text"]
+    {
+    border-radius: 10px;
+    text-align: right;
+    background-color:rgb(0, 255, 157);
+    border-color: black ;
+    width:100%
+    }
+    </style>
+<body>
+    <script>
+        //function for displaying values
+        function dis(val)
+        {
+        document.getElementById("edu").value+=val
+         }
+        //function for evaluation
+        function solve()
+        {
+        let x = document.getElementById("edu").value
+        let y = eval(x)
+        document.getElementById("edu").value = y
+        }
+        //function for clearing the display
+        function clr()
+        {
+        document.getElementById("edu").value = ""
+        }
+        </script>
+    <div class = title >JavaScript Calculator</div>
+    <table border="1">
+    <tr>
+    <td><input type="button" value="c" onclick="clr()"/> </td>
+    <td colspan="3"><input type="text" id="edu"/></td>
+    <!-- clr() function will call clr to clear all value -->
+    </tr>
+    <tr>
+    <!-- creating buttons and assigning values-->
+    <td><input type="button" value="+" onclick="dis('+')"/> </td>
+    <td><input type="button" value="1" onclick="dis('1')"/> </td>
+    <td><input type="button" value="2" onclick="dis('2')"/> </td>
+    <td><input type="button" value="3" onclick="dis('3')"/> </td>
+    </tr>
+    <tr>
+    <td><input type="button" value="-" onclick="dis('-')"/> </td>
+    <td><input type="button" value="4" onclick="dis('4')"/> </td>
+    <td><input type="button" value="5" onclick="dis('5')"/> </td>
+    <td><input type="button" value="6" onclick="dis('6')"/> </td>
+    </tr>
+    <tr>
+    <td><input type="button" value="" onclick="dis('')"/> </td>
+    <td><input type="button" value="7" onclick="dis('7')"/> </td>
+    <td><input type="button" value="8" onclick="dis('8')"/> </td>
+    <td><input type="button" value="9" onclick="dis('9')"/> </td>
+    </tr>
+    <tr>
+    <td><input type="button" value="/" onclick="dis('/')"/> </td>
+    <td><input type="button" value="." onclick="dis('.')"/> </td>
+    <td><input type="button" value="0" onclick="dis('0')"/> </td>
+    <!-- Evaluating function call eval()-->
+    <td><input type="button" value="=" onclick="solve()"/> </td>
+    </tr>
+    </table>
+    </body>
+</html>
+
+QUESTION 5
+
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>Click the button to encode a URI.</p>
+
+<button onclick="myFunction()">Try it</button>
+
+<p id="demo"></p>
+
+<script>
+function myFunction() {
+  var uri = "https://w3schools.com/my test.asp?name=ståle&car=saab";
+  var res = encodeURIComponent(uri);
+  document.getElementById("demo").innerHTML = res;
+}
+</script>
+
+</body>
+</html>
+
+//QUESTION 6
+
+<html>
+<head>
+    <title>employee sales information </title>
+    <script type="text/javascript">
+    function calc()
+    {
+       form=document.getElementById("form1");
+       sales1=form.sales1.value;
+       sales2=form.sales2.value;
+       sales3=form.sales3.value;
+       sales4=form.sales4.value;
+       // Find the total -- TypeCast the values of the textboxes to integer.
+       total=parseInt(sales1)+parseInt(sales2)+parseInt(sales3)+parseInt(sales4);
+       form.total.value= total; // display the total into textbox.
+       form.avg.value= parseInt(total)/4; // typecast.
+       
+    //    if(sub1<35||sub2<35||sub3<35||sub4<35)
+    //    { form.result.value="Fail";}
+    //    else {form.result.value="Pass";}
+        // Grading system.
+       if(form.avg.value>20000)
+        {form.grade.value="2 percent";}
+       else if (form.avg.value>10000 && form.avg.value<20000)
+        {form.grade.value="7 percent";}
+       else if (form.avg.value>5000 && form.avg.value<10000)
+        {form.grade.value="5 percent";}
+       else if (form.avg.value>0 && form.avg.value<5000)
+        {form.grade.value="2 percent";}
+    }
+</script>
+</head>
+<body>
+<form id="form1">
+    Program 8. Student information.<br /><br />
+
+  Enter the Name :  <input type="text" size="20" name="name"/><br />
+   
+  Sales of the employee :  <input type="text" size="20" name="sales1"/><br />
+
+  Sales in Q2 :  <input type="text" size="20" name="sales2"/><br />
+
+  Sales in Q3 :  <input type="text" size="20" name="sales3"/><br />
+
+  Sales in Q4 :  <input type="text" size="20" name="sales4"/><br />
+
+ 
+  <input type="button" name="btn" value="Calculate" onclick="calc()"/><br />
+  Total : <input type="text" size="20" name="total"/><br />
+  Average : <input type="text" size="20" name="avg"/><br />
+  Criteria : <input type="text" size="20" name="grade"/><br />
+  <input type="reset" name="Btn2" value="Reset"/>
+</form>
+</body>
+</html>
+
+
+// QUESTION 7
+
+
+<script>
+
+var number = parseInt(prompt("Please enter a number greater than 100", ""));
+
+if (number > 100) {
+    document.write("Your number " + number + " is matches requirements", "");
+} else if (isNaN(number)) {
+    parseInt(prompt("It is not a number. Please enter a number from 1 to 100", ""));
+} else {
+    parseInt(prompt("Your number " + number + " is below 100. Please enter a number greater than 100", ""));
+}
+
+</script>
